@@ -1,8 +1,6 @@
 #include <Arduino.h>
 #include <WiFi.h>
-
-const char *ssid = "Mi 11 Lite";        // Your WiFi SSID
-const char *password = "password"; // Your
+#include "secret.h"
 
 void setup()
 {
