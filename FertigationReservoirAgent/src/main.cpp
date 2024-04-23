@@ -1,9 +1,7 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
-
-const char *ssid = "Eight Studio Production";        // Your WiFi SSID
-const char *password = "#!@%08"; // Your
+#include "secret.h"
 
 void setup()
 {
