@@ -26,6 +26,6 @@ void setup()
 
 void loop()
 {
-  // Your main code goes here
+  // Yo ur main code goes here
   // Example: send sensor data, control actuators, etc.
 }
