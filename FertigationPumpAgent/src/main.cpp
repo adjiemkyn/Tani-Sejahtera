@@ -1,29 +1,94 @@
 #include <Arduino.h>
-#include <WiFi.h>
+#include <MQTT.h>
+#include <UrusanWiFi.h>
+#include <UrusanIoT.h>
 #include "secret.h"
+#include <TaskScheduler.h>
+#include <UrusanAktuatorReservoir.h>
+#include <ArduinoJson.h>
 
-void setup()
-{
+
+void penangkapPesan(String topic, String message);
+void task1DetailTugas();
+void subscribeTopik();
+
+UrusanWiFi urusanWiFi(ssid, pass);
+UrusanIoT urusanIoT(broker, port, id, brokerUsername, brokerPassword);
+UrusanAktuatorReservoir urusanAktuatorReservoir(32);
+Scheduler penjadwal;
+
+Task task1(3000, TASK_FOREVER, &task1DetailTugas);
+
+void setup() {
+  // put your setup code here, to run once:
   Serial.begin(115200);
 
-  // Connect to WiFi
-  Serial.printf("Connecting to %s\n", ssid);
-  WiFi.begin(ssid, password);
+  urusanWiFi.konek();
+  urusanIoT.konek();
+  urusanIoT.penangkapPesan(penangkapPesan);
 
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print(".");
+  if(urusanIoT.apakahKonek() == 1){
+    subscribeTopik();
   }
 
-  // If successfully connected
-  Serial.println("\nWiFi connected");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  urusanAktuatorReservoir.mulai();
+
+  penjadwal.init();
+  penjadwal.addTask(task1);
+  task1.enable();
 }
 
-void loop()
-{
-  // Your main code goes here
-  // Example: send sensor data, control actuators, etc.
+void loop() {
+  // put your main code here, to run repeatedly:
+  urusanIoT.proses();
+
+  if(urusanWiFi.apakahKonek() == true && urusanIoT.apakahKonek() == false){
+    urusanIoT.konek();
+    if(urusanIoT.apakahKonek() == 1){
+      subscribeTopik();
+    }
+  }
+
+  penjadwal.execute();
+}
+
+void subscribeTopik(){
+  urusanIoT.subscribe("com/TaniSejahtera/FertigationPumpAgent/setelan");
+}
+
+void penangkapPesan(String topic, String message){
+  Serial.printf("penangkapPesan: topic: %s | message: %s\n", topic.c_str(), message.c_str());
+
+  JsonDocument dataMasuk;
+  DeserializationError galatParseJson = deserializeJson(dataMasuk, message);
+  if(galatParseJson == DeserializationError::Ok){
+    if(dataMasuk["perintah"] != nullptr){
+      String perintah = dataMasuk["perintah"].as<String>();
+
+      if(perintah == String("nyalakan")){
+        urusanAktuatorReservoir.nyalakan();
+      }
+      else if(perintah == String("padamkan")){
+        urusanAktuatorReservoir.padamkan();
+      }
+    }
+    
+  }
+  else{
+    Serial.println("penangkapPesan: Format pesan tidak valid! Gunakan format JSON.");
+  }
+}
+
+void task1DetailTugas(){
+  if(urusanIoT.apakahKonek() == true){
+    JsonDocument data;
+    char muatan[512];
+
+    data["status"] = urusanAktuatorReservoir.bacaStatus();
+
+    serializeJson(data, muatan);
+
+    urusanIoT.publish("com/TaniSejahtera/FertigationPumpAgent", muatan);
+  
+  }
 }
