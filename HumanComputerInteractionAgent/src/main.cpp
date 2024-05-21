@@ -119,12 +119,12 @@ void task1DetailTugas()
 
 uint8_t nomorSlider = 1;
 uint8_t jumlahSlider = 4;
-void task2DetailTugas(float suhu, float kelembapan)
+void task2DetailTugas()
 {
 
   if (nomorSlider == 1)
   {
-    urusanLayar.updateTemperatureAndHumidity(suhu, kelembapan);
+    urusanLayar.updateTemperatureAndHumidity(24, 80);
   }
   else if (nomorSlider == 2)
   {
