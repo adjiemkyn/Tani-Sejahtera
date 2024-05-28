@@ -92,11 +92,27 @@ void penangkapPesan(String topic, String message)
       String perintah = dataMasuk["perintah"].as<String>();
     }
 
-    if (dataMasuk["suhu"] != nullptr && dataMasuk["kelembapan"] != nullptr)
+    else if (dataMasuk["suhu"] != nullptr && dataMasuk["kelembapan"] != nullptr)
     {
       float suhu = dataMasuk["suhu"].as<float>();
       float kelembapan = dataMasuk["kelembapan"].as<float>();
       urusanLayar.updateTemperatureAndHumidity(suhu, kelembapan);
+    }
+    else if (dataMasuk["level"] != nullptr)
+    {
+      float level = dataMasuk["level"].as<float>();
+      urusanLayar.updateWaterReservoir(level);
+    }
+    else if (dataMasuk["arah"] != nullptr && dataMasuk["kekuatan"] != nullptr)
+    {
+      bool arah = dataMasuk["arah"].as<float>();
+      int kekuatan = dataMasuk["kekuatan"].as<float>();
+      urusanLayar.updateFanStatus(arah, kekuatan);
+    }
+    else if (dataMasuk["status"] != nullptr)
+    {
+      bool status = dataMasuk["status"].as<float>();
+      urusanLayar.updatePumpStatus(status);
     }
   }
   else
@@ -124,19 +140,19 @@ void task2DetailTugas()
 
   if (nomorSlider == 1)
   {
-    urusanLayar.updateTemperatureAndHumidity(24, 80);
+    urusanLayar.updateTemperatureAndHumidity(suhu, kelembapan);
   }
   else if (nomorSlider == 2)
   {
-    urusanLayar.updateFanStatus(100, 1);
+    urusanLayar.updateFanStatus(bacaKekuatan, bacastatus);
   }
   else if (nomorSlider == 3)
   {
-    urusanLayar.updateWaterReservoir(80);
+    urusanLayar.updateWaterReservoir(level);
   }
   else if (nomorSlider == 4)
   {
-    urusanLayar.updatePumpStatus(1);
+    urusanLayar.updatePumpStatus(perintah);
   }
 
   if (nomorSlider == jumlahSlider)
