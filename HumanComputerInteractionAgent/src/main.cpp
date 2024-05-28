@@ -77,6 +77,7 @@ void loop()
 void subscribeTopik()
 {
   urusanIoT.subscribe("com/TaniSejahtera/HumanComputerInteractionAgent/setelan");
+  urusanIoT.subscribe("com/TaniSejahtera/FertigationReservoirAgent/setelan");
 }
 
 void penangkapPesan(String topic, String message)
