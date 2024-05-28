@@ -77,7 +77,11 @@ void loop()
 void subscribeTopik()
 {
   urusanIoT.subscribe("com/TaniSejahtera/HumanComputerInteractionAgent/setelan");
+  urusanIoT.subscribe("com/TaniSejahtera/HumanComputerInteractionAgent");
   urusanIoT.subscribe("com/TaniSejahtera/FertigationReservoirAgent/setelan");
+  urusanIoT.subscribe("com/TaniSejahtera/FertigationReservoirAgent");
+  urusanIoT.subscribe("com/TaniSejahtera/MicroclimateConditionAgent/setelan");
+  urusanIoT.subscribe("com/TaniSejahtera/MicroclimateConditionAgent");
 }
 
 void penangkapPesan(String topic, String message)
@@ -139,22 +143,22 @@ uint8_t jumlahSlider = 4;
 void task2DetailTugas()
 {
 
-  if (nomorSlider == 1)
-  {
-    urusanLayar.updateTemperatureAndHumidity(suhu, kelembapan);
-  }
-  else if (nomorSlider == 2)
-  {
-    urusanLayar.updateFanStatus(bacaKekuatan, bacastatus);
-  }
-  else if (nomorSlider == 3)
-  {
-    urusanLayar.updateWaterReservoir(level);
-  }
-  else if (nomorSlider == 4)
-  {
-    urusanLayar.updatePumpStatus(perintah);
-  }
+  // if (nomorSlider == 1)
+  // {
+  //   urusanLayar.updateTemperatureAndHumidity(suhu, kelembapan);
+  // }
+  // else if (nomorSlider == 2)
+  // {
+  //   urusanLayar.updateFanStatus(bacaKekuatan, bacastatus);
+  // }
+  // else if (nomorSlider == 3)
+  // {
+  //   urusanLayar.updateWaterReservoir(level);
+  // }
+  // else if (nomorSlider == 4)
+  // {
+  //   urusanLayar.updatePumpStatus(perintah);
+  // }
 
   if (nomorSlider == jumlahSlider)
   {

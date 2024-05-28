@@ -105,14 +105,14 @@ document.addEventListener('DOMContentLoaded', function () {
         statusKoneksi.classList.add("green");
         statusKoneksi.classList.remove("red");
         //Subscribe semua topic baris demi baris yang ingin didengarkan di sini.
-        client.subscribe("TaniSejahtera.com/MicroclimateConditionAgent"); // Ini MCA
-        client.subscribe("TaniSejahtera.com/MicroclimateConditionAgent/setelan"); // Ini setelan MCA
-        client.subscribe("TaniSejahtera.com/MicroclimateAdjusterAgent"); // Ini MAA
-        client.subscribe("TaniSejahtera.com/MicroclimateAdjusterAgent/setelan"); // Ini setelan MAA
-        client.subscribe("TaniSejahtera.com/FertigationReservoirAgent"); // Ini FRA
-        client.subscribe("TaniSejahtera.com/FertigationReservoirAgent/setelan"); // Ini setelan FRA
-        client.subscribe("TaniSejahtera.com/FertigationPumpAgent"); // Ini FPA
-        client.subscribe("TaniSejahtera.com/FertigationPumpAgent/setelan"); // Ini setelan FPA
+        client.subscribe("com/TaniSejahtera/MicroclimateConditionAgent"); // Ini MCA
+        client.subscribe("com/TaniSejahtera/MicroclimateConditionAgent/setelan"); // Ini setelan MCA
+        client.subscribe("com/TaniSejahtera/MicroclimateAdjusterAgent"); // Ini MAA
+        client.subscribe("com/TaniSejahtera/MicroclimateAdjusterAgent/setelan"); // Ini setelan MAA
+        client.subscribe("com/TaniSejahtera/FertigationReservoirAgent"); // Ini FRA
+        client.subscribe("com/TaniSejahtera/FertigationReservoirAgent/setelan"); // Ini setelan FRA
+        client.subscribe("com/TaniSejahtera/FertigationPumpAgent"); // Ini FPA
+        client.subscribe("com/TaniSejahtera/FertigationPumpAgent/setelan"); // Ini setelan FPA
         console.log("Tersambung!");
     }
 
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "perintah": "nyalakan"
         };
 
-        kirimPesan(perintah, "TaniSejahtera.com/FertigationPumpAgent/setelan");
+        kirimPesan(perintah, "com/TaniSejahtera/FertigationPumpAgent/setelan");
     });
 
     document.getElementById("switchPompaFertigasiOff").addEventListener("click", function () {
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "perintah": "padamkan"
         };
 
-        kirimPesan(perintah, "TaniSejahtera.com/FertigationPumpAgent/setelan");
+        kirimPesan(perintah, "com/TaniSejahtera/FertigationPumpAgent/setelan");
     });
 
     document.getElementById("switchBlowerOn").addEventListener("click", function () {
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "kekuatan": divSliderKekuatanBlower.value
         };
 
-        kirimPesan(perintah, "TaniSejahtera.com/MicroclimateAdjusterAgent/setelan");
+        kirimPesan(perintah, "com/TaniSejahtera/MicroclimateAdjusterAgent/setelan");
     });
 
     document.getElementById("switchBlowerOff").addEventListener("click", function () {
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "perintah": "padamkan"
         };
 
-        kirimPesan(perintah, "TaniSejahtera.com/MicroclimateAdjusterAgent/setelan");
+        kirimPesan(perintah, "com/TaniSejahtera/MicroclimateAdjusterAgent/setelan");
     });
 
     document.getElementById("switchBlowerAnginTopan").addEventListener("click", function () {
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "arah": divArahBlower.value
         };
 
-        kirimPesan(perintah, "TaniSejahtera.com/MicroclimateAdjusterAgent/setelan");
+        kirimPesan(perintah, "com/TaniSejahtera/MicroclimateAdjusterAgent/setelan");
     });
 
 
